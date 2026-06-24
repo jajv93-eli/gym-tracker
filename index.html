@@ -324,11 +324,7 @@ async function saveScriptUrl() {
 // Apps Script deployed as Web App accepts GET with ?action=load (CORS allowed from web)
 // For POST we use a hidden form trick to avoid CORS preflight issues
 async function fetchSheet(url) {
-  const res = await fetch(url, {
-    method:"GET",
-    headers:{"Content-Type":"application/json"},
-    redirect:"follow"
-  });
+  const res = await fetch(url, { redirect:"follow" });
   return res.json();
 }
 
