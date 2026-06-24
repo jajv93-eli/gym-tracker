@@ -333,12 +333,16 @@ async function fetchSheet(url) {
 }
 
 async function postToSheet(url, payload) {
-  // Use no-cors for POST — we won't get response body but data will be saved
-  await fetch(url, {
-    method:"POST",
-    body: JSON.stringify(payload),
-    // no Content-Type header to avoid CORS preflight
+  // Use GET with query params to avoid CORS preflight entirely
+  const params = new URLSearchParams({
+    action: payload.action,
+    semana: payload.semana,
+    dia: payload.dia,
+    ejercicio_id: payload.ejercicio_id,
+    persona: payload.persona,
+    peso_kg: payload.peso_kg
   });
+  await fetch(url + "?" + params.toString(), { method: "GET", redirect: "follow" });
 }
 
 async function loadFromSheets(silent=false) {
